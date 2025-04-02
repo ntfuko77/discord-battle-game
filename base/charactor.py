@@ -1,10 +1,11 @@
-class charactor:
-    def __init__(self, name, hp, attack, defense,speed):
+class Charactor:
+    def __init__(self, name, hp, attack, defense,speed,agility):
         self.name = name
         self.max_hp,self.hp=hp,hp
         self.attack = attack
         self.defense = defense
         self.speed=speed
+        self.agility=agility
         self.alive=True
 
     def __str__(self):
