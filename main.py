@@ -1,3 +1,6 @@
-import configloader
-x=configloader.configloader()
-print(x.botkey_data)
+from base import configloader
+config=configloader.Configloader()
+
+test=True
+if test:
+    print(x.botkey_data)

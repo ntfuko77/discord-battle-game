@@ -1,6 +1,8 @@
 import json
 
-class configloader:
-    def __init__(self):
+class Configloader:
+    def __init__(self):...
+    def load_botkey(self)->dict:
         with open('discord-battle-game/profile/botkey.json') as file:
-            self.botkey_data=json.load(file)
+            botkey_data=json.load(file)
+            return botkey_data
