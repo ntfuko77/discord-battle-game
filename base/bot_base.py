@@ -3,15 +3,20 @@ import configloader
 import discord
 from discord.ext import commands
 
-class BotBase(commands.Bot, ABC):
-    def __init__(self, command_prefix: str, intents: discord.Intents) -> None:
-        super().__init__(command_prefix=command_prefix, intents=intents)
-        self.config = configloader.Configloader()
-        self.botkey_data = self.config.load_botkey()
-        self.botkey = self.botkey_data['botkey']
-        self.guild_id = self.botkey_data['guild_id']
-        self.channel_id = self.botkey_data['channel_id']
+class BotBase():
+    def load_token(self) -> str:
+        bottoken = configloader.Configloader().load_botkey()['key']
+        return bottoken
+    def set_Intents(self) -> discord.Intents:
+        intents = discord.Intents.default()
+        intents.message_content = True
+        return intents
+    def login(self) -> None:
+        token = self.load_token()
+        self.bot=discord.Client(intents=self.set_Intents())
+        print(' has connected to Discord!')
+        self.bot.run(token)
 
-    @abstractmethod
-    async def on_ready(self) -> None:
-        pass
+if __name__ == "__main__":
+    bot = BotBase()
+    bot.login()
