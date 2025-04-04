@@ -5,6 +5,7 @@ import discord
 import asyncio
 from ui_trigger import generate_character
 
+
 async def send_menu(channel)->discord.ui.View:
     if hasattr(channel, 'send'):
         view = discord.ui.View()
@@ -16,6 +17,9 @@ async def send_menu(channel)->discord.ui.View:
             [modal.add_item(i) for i in textinput]
             async def on_submit(interaction:discord.Interaction):
                 charator=generate_character(textinput[0].value)
+                id=interaction.user.id
+                # Save the character to the database here
+
                 await interaction.response.send_message(f"""submitted! get{textinput[0].value}
                         {charator['attributes']}""")
             modal.on_submit=on_submit
