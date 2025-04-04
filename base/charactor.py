@@ -16,4 +16,5 @@ class Charactor:
         self.hp -= number
         if self.hp <= 0:
             self.alive=False
+
     
