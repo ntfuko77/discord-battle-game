@@ -3,6 +3,7 @@
 import discord
 # for testing purposes
 import asyncio
+from ui_trigger import generate_character
 
 async def send_menu(channel)->discord.ui.View:
     if hasattr(channel, 'send'):
@@ -14,7 +15,9 @@ async def send_menu(channel)->discord.ui.View:
             textinput=[discord.ui.TextInput(label='Create name')]
             [modal.add_item(i) for i in textinput]
             async def on_submit(interaction:discord.Interaction):
-                await interaction.response.send_message(f"submitted! get{textinput[0].value}")
+                charator=generate_character(textinput[0].value)
+                await interaction.response.send_message(f"""submitted! get{textinput[0].value}
+                        {charator['attributes']}""")
             modal.on_submit=on_submit
             await interaction.response.send_modal(modal)
         button[0].callback = create_charactor
