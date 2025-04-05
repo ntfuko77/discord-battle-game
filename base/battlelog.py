@@ -1,4 +1,4 @@
-from charactor import Charactor
+from character import Character
 from math import sin
 import battlecalculator
 import random
@@ -20,11 +20,11 @@ class Fild_base:
         seed=sum([ord(char) for char in name_space])
         seed=abs(int(sin(seed)))
         random.seed(seed)
-    def basic_attack(self,nom:Charactor,acc:Charactor):
+    def basic_attack(self,nom:Character,acc:Character):
         """Generates a random attack process"""
         ...
 class Fild(Fild_base):
-    def __init__(self,red:Charactor,blue:Charactor):
+    def __init__(self,red:Character,blue:Character):
         super().__init__()
         self.red=red
         self.blue=blue
@@ -57,11 +57,11 @@ class Fild(Fild_base):
             yield "It's a draw!"
         return
         
-    def scene(self,nom:Charactor,acc:Charactor):...
+    def scene(self,nom:Character,acc:Character):...
         
 if __name__=='__main__':
-    red=Charactor("Red",100,50,30,20,10)
-    blue=Charactor("Blue",100,40,40,25,15)
+    red=Character("Red",100,50,30,20,10)
+    blue=Character("Blue",100,40,40,25,15)
     fild_instance=Fild(red,blue)
     for log in fild_instance.base_scene():
         print(log)

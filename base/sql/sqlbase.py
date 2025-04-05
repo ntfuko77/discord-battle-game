@@ -26,7 +26,7 @@ if __name__ == "__main__":
     # reset table
     reset=True
     if reset==True:
-        con.execute('''DROP TABLE IF EXISTS users_character''')
+        con.execute('''DROP TABLE IF EXISTS user_character''')
     con.execute('''CREATE TABLE IF NOT EXISTS user_character (
                     user_id INTEGER PRIMARY KEY,
                     character_name TEXT NOT NULL,

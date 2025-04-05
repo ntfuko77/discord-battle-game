@@ -1,4 +1,4 @@
-class Charactor:
+class Character:
     def __init__(self, name, hp, attack, defense,speed,agility):
         self.name = name
         self.max_hp,self.hp=hp,hp
