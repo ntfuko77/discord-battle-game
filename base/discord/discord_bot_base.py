@@ -28,7 +28,7 @@ def set_events(bot:discord.client.Client,cursor) -> None:
             return
         par=parser.parser(message.content)
         if par=='menu':
-            await send_menu(message.channel)
+            await send_menu(message)
             
 
 

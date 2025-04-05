@@ -1,6 +1,7 @@
 import random
 import sql_connect
 
+con=sql_connect.Discord_Sql()
 def generate_character(name:str,id=0):
     """Generate a character with random attributes and skills."""
     seed = sum([ord(char) for char in name])
@@ -17,4 +18,5 @@ def generate_character(name:str,id=0):
         "attributes": attributes,
     }
     random.seed()  # Reset the seed for future random operations
+    con.save_character(id, character)
     return character

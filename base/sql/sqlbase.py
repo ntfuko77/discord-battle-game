@@ -35,6 +35,9 @@ if __name__ == "__main__":
                     attack INTEGER NOT NULL CHECK (attack > 0),
                     defense INTEGER NOT NULL CHECK (defense > 0),
                     speed INTEGER NOT NULL CHECK (speed > 0),
-                    agility INTEGER NOT NULL CHECK (agility > 0)
+                    agility INTEGER NOT NULL CHECK (agility > 0),
+                    level INTEGER DEFAULT 1 CHECK (level > 0),
+                    experience INTEGER DEFAULT 0 CHECK (experience >= 0)
                 )''')
+
     sql_base.close()
