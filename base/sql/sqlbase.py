@@ -27,6 +27,23 @@ if __name__ == "__main__":
     reset=True
     if reset==True:
         con.execute('''DROP TABLE IF EXISTS user_character''')
+        con.execute('''DROP TABLE IF EXISTS users''')
+        con.execute('''DROP TABLE IF EXISTS status''')
+    con.execute('''CREATE TABLE IF NOT EXISTS users(
+                    user_id INTEGER PRIMARY KEY,
+                    inventory_id INTEGER,
+                    character_id INTEGER NOT NULL,
+                    status_id INTEGER,
+                    registered_at TIMESTAMP DEFAULT SELECT(DATETIME("now","+8 hours"))
+                )''')
+    con.execute('''CREATE TABLE IF NOT EXISTS status(
+                    status_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    status_name TEXT NOT NULL,
+                    description TEXT NOT NULL,
+                    effect TEXT NOT NULL,
+                    
+                )''')
+
     con.execute('''CREATE TABLE IF NOT EXISTS user_character (
                     user_id INTEGER PRIMARY KEY,
                     character_name TEXT NOT NULL,
@@ -39,5 +56,6 @@ if __name__ == "__main__":
                     level INTEGER DEFAULT 1 CHECK (level > 0),
                     experience INTEGER DEFAULT 0 CHECK (experience >= 0)
                 )''')
+    
 
     sql_base.close()

@@ -3,7 +3,7 @@
 import discord
 # for testing purposes
 import asyncio
-from ui_trigger import generate_character, reset_character
+from ui_trigger import generate_character, reset_character, generate_battlelog
 import sql_connect
 
 class module:
@@ -18,11 +18,21 @@ module=module('discord_ui')
 
 class method:
     @staticmethod
-    def menu_case_1()->discord.ui.view:
+    async def unrealized(interaction:discord.Interaction)->None:
+        await interaction.response.send_message("Unrealized")
+        return
+    @staticmethod
+    async def interaction_check_useronly(interaction:discord.Interaction)->bool:
+        '''untested'''
+        return interaction.user in interaction.message.mentions
+    @staticmethod
+    def menu_case_1(user:discord.user)->discord.ui.view:
         view=discord.ui.View()
         buttons=[discord.ui.Button(label='fights', style=discord.ButtonStyle.primary)]
         buttons.append(discord.ui.Button(label='character', style=discord.ButtonStyle.primary))
         buttons.append(discord.ui.Button(label='rebirth', style=discord.ButtonStyle.primary))
+        buttons.append(discord.ui.Button(label='shop', style=discord.ButtonStyle.primary))
+        buttons.append(discord.ui.Button(label='Inventory', style=discord.ButtonStyle.primary))
         [view.add_item(i) for i in buttons]
         async def sub_fights(interaction:discord.Interaction)->None:
             await interaction.response.send_message("fights")
@@ -34,7 +44,12 @@ class method:
         buttons[0].callback = method.match_opponent
         buttons[1].callback = sub_character
         buttons[2].callback = method.rebirth
+        buttons[3].callback = method.unrealized
+        buttons[4].callback = method.unrealized
+        view.interaction_check=method.interaction_check_useronly
+        # Add your interaction check logic here
         return view
+
     @staticmethod
     async def rebirth(interaction:discord.Interaction)->None:
         result=reset_character(interaction.user.id)
@@ -50,13 +65,18 @@ class method:
         [view.add_item(i) for i in buttons]
         for i in buttons:
             i.callback = method.pvp_battle
+        #therefore user_character could be fight with target_character:...
         await interaction.response.send_message("match opponent", view=view)
         # Add your match logic here
     async def pvp_battle(interaction:discord.Interaction)->None:
         # Add your battle logic here
-        await interaction.response.send_message(interaction.data)
+        buffer=module.con.play_battle_start(int(interaction.user.id), int(interaction.data['custom_id']))
+        buffer=generate_battlelog(buffer[0], buffer[1])
+        await interaction.response.send_message(buffer)
         return
+
     
+
 
 
 
@@ -71,8 +91,8 @@ async def send_menu(message:discord.message.Message)->None:
     # case 1: if user has character
     if module.con.serch_user(user.id)==True:
         # get user character
-        view=method.menu_case_1()
-        await channel.send("menu here", view=view)
+        view=method.menu_case_1(message.author)
+        await channel.send(f"menu here {user.mention}", view=view)
         return
 
 

@@ -48,6 +48,9 @@ class Fild(Fild_base):
                 yield self.round_end()
                 break
             yield self.round_end()
+            if self.round_number>10:
+                yield "The battle is too long!"
+                return
             yield self.begin()
         if order[0].alive and not order[1].alive:
             yield f"{order[0].name} wins!"

@@ -7,4 +7,6 @@ def damage_calculator(attacker:character,defender:character)->int:
     if damage < 0:
         damage = 0
     defender.hp -= damage
+    if defender.hp <= 0:
+        defender.alive = False
     return damage

@@ -1,6 +1,8 @@
 import sys
 sys.path.append("discord-battle-game/base/sql")
 import sqlbase
+
+
 class Discord_Sql(sqlbase.SqlBase):
     def __init__(self):
         super().__init__("discord-battle-game/profile/simple_world.sqlite3")
@@ -44,8 +46,8 @@ class Discord_Sql(sqlbase.SqlBase):
             return result
     def play_battle_start(self, user_id:int, opponent_id:int):
         """Start a battle between two users."""
-        red=self.con.find_character(user_id)
-        blue=self.con.find_character(opponent_id)
+        red=self.find_character(user_id)
+        blue=self.find_character(opponent_id)
         return (red, blue)
         
         

@@ -35,4 +35,9 @@ def reset_character(id:int) -> None:
     con.delete_character(id)
     return generate_character(buffer, id)
 
-def generate_battlelog(red:dict,blue:dict)->str:...
+def generate_battlelog(red,blue)->str:
+    log=battlelog.Fild(red, blue)
+    buffer=''
+    for i in log.base_scene():
+        buffer+=i+'\n'
+    return buffer
