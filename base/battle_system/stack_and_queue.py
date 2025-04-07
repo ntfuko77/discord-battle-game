@@ -58,6 +58,9 @@ class base_queue:
 class stack(base_stack):
     def __init__(self):
         super().__init__()
+    def push(self,data):
+        if data==None:return
+        super().push(data)
     def insert(self,data):
         buffer=self.pop()
         self.push(data)
@@ -66,7 +69,9 @@ class stack(base_stack):
 class queue(base_queue):
     def __init__(self):
         super().__init__()
-    def enqueue(self,data:str)
+    def enqueue(self,data:str):
+        if data==None:return
+        super().enqueue(data)
     def fetchall(self)->str:
         buffer=''
         while not self.is_empty():
